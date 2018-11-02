@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include, url
 from marketing.views import HomePage
+from subscribers import views as sub_Views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,7 +26,8 @@ urlpatterns = [
     url(r'^$', HomePage.as_view(), name="home"),
 
     # Subscriber related URLs
-
+    url(r'^signup/$', sub_Views.subscriber_new, name='sub_new'
+    ),
 
     # Admin URL
 
