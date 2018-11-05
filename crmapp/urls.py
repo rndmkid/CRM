@@ -30,7 +30,7 @@ urlpatterns = [
     ),
 
     # Admin URL
-
+    (r'^admin/', include(admin.site.urls)),
 
     # Login/Logout URLs
 
