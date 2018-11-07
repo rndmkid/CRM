@@ -18,25 +18,27 @@ from django.urls import path
 from django.conf.urls import include, url
 from marketing.views import HomePage
 from subscribers import views as sub_Views
+from accounts.views import AccountList
+from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    #path('admin/', admin.site.urls),
 
    # Marketing pages
     url(r'^$', HomePage.as_view(), name="home"),
 
     # Subscriber related URLs
-    url(r'^signup/$', sub_Views.subscriber_new, name='sub_new'
-    ),
+    url(r'^signup/$', sub_Views.subscriber_new, name='sub_new'),
 
     # Admin URL
-    (r'^admin/', include(admin.site.urls)),
+    url('^admin/', admin.site.urls),
 
     # Login/Logout URLs
-
+    url(r'^login/$', LoginView.as_view(template_name="login.html")),
+    url(r'^logout/$', LogoutView.as_view(next_page="/login/")),
 
     # Account related URLs
-
+    url(r'^account/list/$', AccountList.as_view(), name='account_list'),
 
     # Contact related URLS
 
