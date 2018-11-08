@@ -20,6 +20,7 @@ from marketing.views import HomePage
 from subscribers import views as sub_Views
 #from accounts import views as acc_Views
 from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.forms import AuthenticationForm
 
 urlpatterns = [
     #path('admin/', admin.site.urls),
@@ -34,19 +35,15 @@ urlpatterns = [
     url('^admin/', admin.site.urls),
 
     # Login/Logout URLs
-    url(r'^login/$', LoginView.as_view(template_name="login.html"), name='login'),
+    url(r'^login/$',
+        LoginView.as_view(template_name="login.html",
+                          #authentication_form=AuthenticationForm(),
+                          ),
+        name='login'),
     url(r'^logout/$', LogoutView.as_view(next_page="/login/")),
 
     # Account related URLs
     url('^account/', include('accounts.urls')),
-##    url(r'^account/new/$', acc_Views.account_cru, name='account_new'),
-##    url(r'^account/list/$',
-##            acc_Views.AccountList.as_view(),
-##            name='account_list'),
-##    url(r'^account/(?P<uuid>[\w-]+)/', include('accounts.urls')),
-##    url(r'^account/(?P<uuid>[\w-]+)/',
-##            acc_Views.account_detail,
-##            name='account_detail'),
     
     # Contact related URLS
 
