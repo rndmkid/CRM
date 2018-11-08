@@ -18,7 +18,7 @@ from django.urls import path
 from django.conf.urls import include, url
 from marketing.views import HomePage
 from subscribers import views as sub_Views
-from accounts import views as acc_Views
+#from accounts import views as acc_Views
 from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
@@ -38,11 +38,15 @@ urlpatterns = [
     url(r'^logout/$', LogoutView.as_view(next_page="/login/")),
 
     # Account related URLs
-    url(r'^account/list/$', acc_Views.AccountList.as_view(), name='account_list'),
-    #url(r'^account/(?P<uuid>[\w-]+)/', include('accounts.urls.account_urls')),
-    url(r'^account/(?P<uuid>[\w-]+)/',
-            acc_Views.account_detail,
-            name='account_detail'),
+    url('^account/', include('accounts.urls')),
+##    url(r'^account/new/$', acc_Views.account_cru, name='account_new'),
+##    url(r'^account/list/$',
+##            acc_Views.AccountList.as_view(),
+##            name='account_list'),
+##    url(r'^account/(?P<uuid>[\w-]+)/', include('accounts.urls')),
+##    url(r'^account/(?P<uuid>[\w-]+)/',
+##            acc_Views.account_detail,
+##            name='account_detail'),
     
     # Contact related URLS
 

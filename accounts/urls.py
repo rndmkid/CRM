@@ -1,8 +1,12 @@
-##from django.conf.urls import patterns, url
-##
-##account_urls = patterns('',
-##
-##    url(r'^$',
-##        'crmapp.accounts.views.account_detail', name='account_detail'
-##    ),
-##)
+from django.urls import path
+from django.conf.urls import url, include
+from accounts import views
+
+urlpatterns = [
+    url(r'^account/new/$', views.account_cru, name='account_new'),
+    url(r'^account/list/$',
+            views.AccountList.as_view(),
+            name='account_list'),
+    url(r'^account/(?P<uuid>[\w-]+)/', include('accounts.acc_urls')),
+]
+
