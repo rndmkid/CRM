@@ -4,10 +4,13 @@ from django.utils.decorators import method_decorator
 
 from .models import Account
 
+from django.http import HttpResponseForbidden
+from django.shortcuts import render
+
 class AccountList(ListView):
     model = Account
     paginate_by = 12
-    template_name = 'accounts/account_list.html'
+    template_name = 'account_list.html'
     context_object_name = 'accounts'
 
     def get_queryset(self):
@@ -27,3 +30,16 @@ class AccountList(ListView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(AccountList, self).dispatch(*args, **kwargs)
+
+@login_required()
+def account_detail(request, uuid):
+
+    account = Account.objects.get(uuid=uuid)
+    if account.owner != request.user:
+        return HttpResponseForbidden()
+
+    variables = {
+	    'account': account,
+    }
+
+    return render(request, 'accounts/account_detail.html', variables)

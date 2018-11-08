@@ -74,6 +74,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'crmapp.wsgi.application'
 
+AUTH_USER_MODEL = 'subscribers.Subscriber'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
