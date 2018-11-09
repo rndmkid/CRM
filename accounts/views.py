@@ -46,7 +46,7 @@ def account_detail(request, uuid):
 	    'account': account,
     }
 
-    return render(request, 'accounts/account_detail.html', variables)
+    return render(request, 'account_detail.html', variables)
 
 @login_required()
 def account_cru(request, uuid=None):
@@ -76,8 +76,8 @@ def account_cru(request, uuid=None):
     }
 
     if request.is_ajax():
-        template = 'accounts/account_item_form.html'
+        template = 'account_item_form.html'
     else:
-        template = 'accounts/account_cru.html'
+        template = 'account_cru.html'
 
     return render(request, template, variables)

@@ -20,7 +20,7 @@ from marketing.views import HomePage
 from subscribers import views as sub_Views
 #from accounts import views as acc_Views
 from django.contrib.auth.views import LoginView, LogoutView
-from django.contrib.auth.forms import AuthenticationForm
+from accounts.forms import CustomAuthenticationForm
 
 urlpatterns = [
     #path('admin/', admin.site.urls),
@@ -37,7 +37,7 @@ urlpatterns = [
     # Login/Logout URLs
     url(r'^login/$',
         LoginView.as_view(template_name="login.html",
-                          #authentication_form=AuthenticationForm(),
+                          authentication_form=CustomAuthenticationForm,
                           ),
         name='login'),
     url(r'^logout/$', LogoutView.as_view(next_page="/login/")),

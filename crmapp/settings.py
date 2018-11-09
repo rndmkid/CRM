@@ -137,3 +137,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'crmapp/static'),
 )
+
+#settings
+LOGIN_REDIRECT_URL = 'home'
