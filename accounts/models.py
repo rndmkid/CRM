@@ -4,7 +4,6 @@ from django.db import models
 import uuid
 from django.urls import reverse
 
-
 #from shortuuidfield import ShortUUIDField
 
 
@@ -34,4 +33,11 @@ class Account(models.Model):
 
     def get_delete_url(self):
         return reverse('account_delete', args=[self.uuid])
+
+    def exists(self):
+        try:
+            Account.objects.get(uuid=self.uuid)
+            return True
+        except(self.DoesNotExist):
+            return False     
     

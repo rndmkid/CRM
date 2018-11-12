@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 from .models import Account
+from subscribers.models import Subscriber
 
 from django.http import HttpResponseForbidden
 from django.shortcuts import render
@@ -10,6 +11,7 @@ from django.http import HttpResponseRedirect
 
 from .forms import AccountForm
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
 
 class AccountList(ListView):
     model = Account
@@ -63,7 +65,7 @@ def account_cru(request, uuid=None):
         if form.is_valid():
             form.save()
             redirect_url = reverse(
-                'crmapp.accounts.views.account_detail',
+                'account_detail',
                 args=(account.uuid,)
             )
             return HttpResponseRedirect(redirect_url)
@@ -79,5 +81,33 @@ def account_cru(request, uuid=None):
         template = 'account_item_form.html'
     else:
         template = 'account_cru.html'
+
+    return render(request, template, variables)
+
+@login_required()
+def account_create(request):
+
+    if request.POST:
+        form = AccountForm(request.POST)
+        
+        account = form.save(commit=False)
+        account.owner_id = request.user.id
+        account.save()
+        redirect_url = reverse(
+            'account_detail',
+            args=(account.uuid,)
+        )
+        return HttpResponseRedirect(redirect_url)
+    else:
+##        sub = Subscriber.objects.get(username=request.user.username)
+##        account = Account()
+##        account.user_id = request.user.id
+        form = AccountForm()
+
+    variables = {
+        'form': form,
+    }
+
+    template = 'account_cru.html'
 
     return render(request, template, variables)
