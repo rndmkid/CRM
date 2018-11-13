@@ -12,6 +12,7 @@ from django.http import HttpResponseRedirect
 from .forms import AccountForm
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
+from contacts.models import Contact
 
 class AccountList(ListView):
     model = Account
@@ -44,8 +45,11 @@ def account_detail(request, uuid):
     if account.owner != request.user:
         return HttpResponseForbidden()
 
+    contacts = Contact.objects.filter(account=account)
+    
     variables = {
 	    'account': account,
+            'contacts': contacts,
     }
 
     return render(request, 'account_detail.html', variables)

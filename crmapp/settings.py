@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'marketing',
     'subscribers',
     'accounts',
+    'contacts',
     
 ]
 

@@ -21,6 +21,7 @@ from subscribers import views as sub_Views
 #from accounts import views as acc_Views
 from django.contrib.auth.views import LoginView, LogoutView
 from accounts.forms import CustomAuthenticationForm
+from contacts import views as contact_views
 
 urlpatterns = [
     #path('admin/', admin.site.urls),
@@ -46,7 +47,8 @@ urlpatterns = [
     url('^account/', include('accounts.urls')),
     
     # Contact related URLS
-
+    url(r'^contact/new/$', contact_views.contact_cru, name='contact_new'),
+    url(r'^contact/(?P<uuid>[\w-]+)/', include('contacts.urls')),
 
     # Communication related URLs
 ]
