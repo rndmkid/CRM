@@ -12,8 +12,6 @@ class Contact(models.Model):
     email = models.EmailField()
     account = models.ForeignKey('accounts.Account',
                                 on_delete=models.CASCADE)
-    owner = models.ForeignKey('subscribers.Subscriber',
-                              on_delete=models.CASCADE)
     created_on = models.DateField(auto_now_add=True)
 
     class Meta:
@@ -33,4 +31,11 @@ class Contact(models.Model):
         return reverse('contact_update', args=[self.uuid])
 
     def get_delete_url(self):
-        return reverse('contact_delete', args=[self.id])
+        return reverse('contact_delete', args=[self.uuid])
+
+    def exists_in_db(self):
+        try:
+            Contact.objects.get(uuid=self.uuid)
+            return True
+        except(self.DoesNotExist):
+            return False

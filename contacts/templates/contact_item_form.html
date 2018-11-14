@@ -1,6 +1,7 @@
 <form id="contact-form"
       {# POST Destination #}
-      action="{% url 'contact_new' %}"
+      action="{% if contact.exists_in_db %}
+      {% url 'contact_update' contact.uuid %}{% else %}{% url 'contact_new' %}{% endif %}"
       method="post">
     {% csrf_token %}
 	<p> {{ request.GET.account }} </p>
@@ -28,7 +29,9 @@
     </table>
     <input id="id_account" name="account"
            type="hidden"
-           value="{% if request.GET.account %}
+		   value="{{ account.uuid }}"/>
+		   <!--value="{% if request.GET.account %}
            {{ request.GET.account }}{% else %}{{ account.id }}{% endif %}"/>
+		   -->
     <input id="contact-submit" class="btn btn-primary m-r-none" type="submit" value="SAVE"/>
 </form>

@@ -107,9 +107,6 @@ def account_create(request):
         )
         return HttpResponseRedirect(redirect_url)
     else:
-##        sub = Subscriber.objects.get(username=request.user.username)
-##        account = Account()
-##        account.user_id = request.user.id
         form = AccountForm()
 
     variables = {
