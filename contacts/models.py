@@ -1,9 +1,10 @@
 from django.db import models
 from django.urls import reverse
+import uuid
 
 
 class Contact(models.Model):
-    uuid = models.UUIDField(unique=True)
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     role = models.CharField(max_length=20)

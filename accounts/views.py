@@ -13,6 +13,7 @@ from .forms import AccountForm
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from contacts.models import Contact
+from json import JSONEncoder
 
 class AccountList(ListView):
     model = Account
@@ -52,6 +53,9 @@ def account_detail(request, uuid):
             'contacts': contacts,
     }
 
+    
+    request.session['account'] = account.uuid.hex
+    
     return render(request, 'account_detail.html', variables)
 
 @login_required()

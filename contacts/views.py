@@ -6,6 +6,8 @@ from django.http import HttpResponseForbidden
 
 from .models import Contact
 from .forms import ContactForm
+from accounts.models import Account
+from uuid import UUID
 
 
 @login_required()
@@ -25,12 +27,15 @@ def contact_cru(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             # make sure the user owns the account
-            account = form.cleaned_data['account']
-            if account.owner != request.user:
-                return HttpResponseForbidden()
+##            account = form.cleaned_data['account']
+##            if account.owner != request.user:
+##                return HttpResponseForbidden()
             # save the data
             contact = form.save(commit=False)
             contact.owner_id = request.user.id
+            account = Account.objects.get(
+                uuid=request.session['account'])
+            contact.account = account
             contact.save()
             # return the user to the account detail view
             reverse_url = reverse(
