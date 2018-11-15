@@ -60,5 +60,25 @@ $(document).ready(function() {
         e.preventDefault();
         $('#gi-container').load($(this).attr('href'));
     });
-
+	
+	 // Contact - Use AJAX to get the Contact Add form
+    $('#cd-container').delegate('#new-contact', 'click', function(e) {
+        e.preventDefault();
+        $.get($(this).attr('href'), function(data) {
+            $('#cd-body').append(data);
+            $('#new-contact').hide();
+        });
+    });
+	
+	 // Contact - Use AJAX to get the Contact Edit form
+    $('#cd-container').delegate('.edit-contact', 'click', function(e) {
+        e.preventDefault();
+        var that = $(this);
+        $.get($(this).attr('href'), function(data) {
+            $('#new-contact').hide();
+            that.parent().parent().remove();
+            $('#cd-body').append(data);
+        })
+    });
 });
+

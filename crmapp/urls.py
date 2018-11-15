@@ -47,7 +47,7 @@ urlpatterns = [
     url('^account/', include('accounts.urls')),
     
     # Contact related URLS
-    url(r'^contact/new/$', contact_views.contact_cru, name='contact_new'),
+    url(r'^contact/new/$', contact_views.contact_create, name='contact_new'),
     url(r'^contact/(?P<uuid>[\w-]+)/', include('contacts.urls')),
 
     # Communication related URLs

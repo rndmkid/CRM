@@ -4,7 +4,6 @@
       {% url 'contact_update' contact.uuid %}{% else %}{% url 'contact_new' %}{% endif %}"
       method="post">
     {% csrf_token %}
-	<p> {{ request.GET.account }} </p>
     <table class="table">
         <tbody>
             <tr>
