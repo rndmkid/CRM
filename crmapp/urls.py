@@ -49,6 +49,10 @@ urlpatterns = [
     # Contact related URLS
     url(r'^contact/new/$', contact_views.contact_cru, name='contact_new'),
     url(r'^contact/(?P<uuid>[\w-]+)/', include('contacts.urls')),
+    url(r'^contact/(?P<pk>[\w-]+)/delete/$',
+        contact_views.ContactDelete.as_view(),
+        name='contact_delete',
+        ),
 
     # Communication related URLs
 ]
