@@ -4,6 +4,7 @@ from django.utils.decorators import method_decorator
 
 from .models import Account
 from subscribers.models import Subscriber
+from communications.models import Communication
 
 from django.http import HttpResponseForbidden
 from django.shortcuts import render
@@ -47,10 +48,13 @@ def account_detail(request, uuid):
         return HttpResponseForbidden()
 
     contacts = Contact.objects.filter(account=account)
+    communications = Communication.objects.filter(
+        account=account).order_by('-created_on')
     
     variables = {
 	    'account': account,
             'contacts': contacts,
+            'communications': communications,
     }
 
     

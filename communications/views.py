@@ -1,0 +1,20 @@
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden, HttpResponse
+
+from .models import Communication
+
+@login_required()
+def comm_detail(request, uuid):
+
+    comm = Communication.objects.get(uuid=uuid)
+    if comm.owner != request.user:
+            return HttpResponseForbidden()
+
+    return render(request, 'comm_detail.html', {'comm':comm})
+
+@login_required()
+def comm_cru(request):
+
+
+    return HtttpResponse()

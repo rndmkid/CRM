@@ -55,4 +55,5 @@ urlpatterns = [
         ),
 
     # Communication related URLs
+    url('^comm/', include('communications.urls')),
 ]
