@@ -31,3 +31,10 @@ class Communication(models.Model):
 
     def get_delete_url(self):
         return reverse('comm_delete', [self.uuid,])
+
+    def exists(self):
+        try:
+            Communication.objects.get(uuid=self.uuid)
+            return True
+        except(self.DoesNotExist):
+            return False

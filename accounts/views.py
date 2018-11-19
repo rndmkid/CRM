@@ -5,15 +5,16 @@ from django.utils.decorators import method_decorator
 from .models import Account
 from subscribers.models import Subscriber
 from communications.models import Communication
+from communications.forms import CommunicationForm
+from contacts.models import Contact
+from .forms import AccountForm
 
 from django.http import HttpResponseForbidden
 from django.shortcuts import render
 from django.http import HttpResponseRedirect 
 
-from .forms import AccountForm
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from contacts.models import Contact
 from json import JSONEncoder
 
 class AccountList(ListView):
@@ -50,11 +51,14 @@ def account_detail(request, uuid):
     contacts = Contact.objects.filter(account=account)
     communications = Communication.objects.filter(
         account=account).order_by('-created_on')
+
+    form = CommunicationForm()
     
     variables = {
-	    'account': account,
-            'contacts': contacts,
-            'communications': communications,
+	'account': account,
+        'contacts': contacts,
+        'communications': communications,
+        'form': form
     }
 
     

@@ -9,6 +9,7 @@ comm_urls = [
 
 urlpatterns = [
     #url(r'(?P<uuid>[\w-]+)/', views.comm_detail, name="comm_detail"),
+    url('^new/$', views.comm_cru, name='comm_new'),
     url('', include(comm_urls)),
 ]
 
